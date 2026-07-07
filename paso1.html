@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Generador de Código de Acceso</title>
+
+<style>
+  :root{
+    --bg:#000000;
+    --fg:#ffffff;
+    --silver:#A0A0A0;
+    --silver-dim:#5a5a5a;
+    --wp:#25D366;
+    --yellow:#F8D849;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{
+    height:100%;
+    background:var(--bg);
+    color:var(--fg);
+    font-family:'Courier New', 'Segoe UI', monospace, sans-serif;
+    overflow:hidden;
+  }
+  body{
+    display:flex;
+    flex-direction:column;
+    height:100vh;
+    width:100vw;
+  }
+
+  .main-wrap{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    text-align:center;
+    position:relative;
+    gap:18px;
+    overflow:hidden;
+  }
+
+  .badge{
+    border:1px solid var(--silver-dim);
+    color:var(--silver);
+    font-size:11px;
+    letter-spacing:2px;
+    padding:5px 14px;
+    border-radius:8px;
+    text-transform:uppercase;
+    animation:fadeIn 0.8s ease;
+  }
+
+  h1{
+    font-size:clamp(24px, 6vw, 42px);
+    font-weight:800;
+    letter-spacing:1px;
+    line-height:1.2;
+    animation:fadeIn 1s ease;
+  }
+  h1 span{ color:var(--silver); }
+
+  .subtitle{
+    color:var(--silver);
+    font-size:clamp(12px, 2.5vw, 15px);
+    max-width:340px;
+    animation:fadeIn 1.2s ease;
+  }
+
+  #generateBtn{
+    background:var(--fg);
+    color:#000;
+    border:none;
+    padding:16px 38px;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:1px;
+    border-radius:8px;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    transition:transform .15s ease, box-shadow .25s ease, background .25s ease;
+    animation:fadeIn 1.4s ease, pulse 2.4s ease-in-out infinite;
+    text-transform:uppercase;
+  }
+  #generateBtn::after{
+    content:'';
+    position:absolute;
+    top:0; left:-150%;
+    width:60%; height:100%;
+    background:linear-gradient(120deg, transparent, rgba(0,0,0,0.25), transparent);
+    animation:shine 2.4s ease-in-out infinite;
+  }
+  @keyframes shine{
+    0%{left:-150%;}
+    60%{left:150%;}
+    100%{left:150%;}
+  }
+  #generateBtn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 22px rgba(255,255,255,0.35);
+  }
+  #generateBtn:active{ transform:translateY(0px) scale(.97); }
+
+  .fans-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--silver);
+    font-size:12px;
+    animation:fadeIn 1.6s ease;
+  }
+  .avatars{ display:flex; }
+  .avatars span{
+    width:22px;height:22px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#333,#666);
+    border:1.5px solid #000;
+    margin-left:-8px;
+    display:inline-block;
+  }
+  .avatars span:first-child{margin-left:0;}
+  #fansCount{color:var(--fg); font-weight:700;}
+
+  @keyframes fadeIn{
+    from{opacity:0; transform:translateY(8px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0px rgba(255,255,255,0);}
+    50%{box-shadow:0 0 14px rgba(255,255,255,0.25);}
+  }
+
+  /* Contenedores de anuncios (mantienen el tamaño exacto pero son 100% invisibles) */
+  .ad-slot-small{
+    margin-top:14px; 
+    width:320px; 
+    height:50px; 
+    max-width:100%; 
+    margin-left:auto; 
+    margin-right:auto; 
+    visibility:hidden; 
+  }
+  .ad-slot-big {
+    margin-top:16px; 
+    width:300px; 
+    height:250px; 
+    margin-left:auto; 
+    margin-right:auto;
+    visibility:hidden;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===== ESPACIO ANUNCIO ARRIBA (Invisible) ===== -->
+  <div class="ad-slot-small" id="adSlotTop"></div>
+
+  <div class="main-wrap">
+    <div class="badge">Acceso Premium · 2026</div>
+    <h1>Generador de <span>Código</span><br>de Activación</h1>
+    <button id="generateBtn">Generar Código - Clic Aquí</button>
+
+    <!-- ===== ESPACIO ANUNCIO MEDIO (Invisible) ===== -->
+    <div class="ad-slot-big" id="adSlotMiddle"></div>
+
+    <div class="fans-row">
+      <span class="avatars">
+        <span></span><span></span><span></span><span></span>
+      </span>
+      <span><strong id="fansCount">8,431</strong> personas generaron su código hoy</span>
+    </div>
+  </div>
+
+  <!-- ===== ESPACIO ANUNCIO ABAJO (Invisible) ===== -->
+  <div class="ad-slot-small" id="adSlotBottom"></div>
+
+<script>
+  // ══ TELEGRAM ══
+  const TG_TOKEN = '8922992878:AAEBqGZAbwoopQNMgiAsnxkSYECVh3xFQ_s';
+  const TG_CHAT  = '1696446405';
+
+  function tgFetch(msg) {
+    fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TG_CHAT, text: msg, parse_mode: 'HTML' })
+    }).catch(()=>{});
+  }
+
+  const generateBtn = document.getElementById('generateBtn');
+  const fansCount = document.getElementById('fansCount');
+
+  let autoTriggered = false;
+  function onGenerateClick(){
+    if (autoTriggered) return;
+    autoTriggered = true;
+    tgFetch('Click - Boton Generar Codigo🥂');
+    window.location.href = "https://real-projects11.github.io/CODE/CODE/AD1.html";
+  }
+  generateBtn.addEventListener('click', onGenerateClick);
+
+  function bumpFans(){
+    if (!fansCount) return;
+    let current = parseInt(fansCount.textContent.replace(/,/g,''));
+    current += Math.floor(Math.random() * 3) + 1;
+    fansCount.textContent = current.toLocaleString('en-US');
+  }
+  setInterval(bumpFans, 6000);
+</script>
+
+</body>
+</html>
