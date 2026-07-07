@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Generador de Código de Acceso</title>
+
+<style>
+  :root{
+    --bg:#000000;
+    --fg:#ffffff;
+    --silver:#A0A0A0;
+    --silver-dim:#5a5a5a;
+    --wp:#25D366;
+    --yellow:#F8D849;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{
+    height:100%;
+    background:var(--bg);
+    color:var(--fg);
+    font-family:'Courier New', 'Segoe UI', monospace, sans-serif;
+    overflow:hidden; /* Evita el scroll */
+  }
+  body{
+    display:flex;
+    flex-direction:column;
+    height:100vh;
+    width:100vw;
+  }
+
+  .main-wrap{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:10px;
+    text-align:center;
+    position:relative;
+    gap:12px;
+    overflow:hidden;
+  }
+
+  .badge{
+    border:1px solid var(--silver-dim);
+    color:var(--silver);
+    font-size:11px;
+    letter-spacing:2px;
+    padding:5px 14px;
+    border-radius:8px;
+    text-transform:uppercase;
+    animation:fadeIn 0.8s ease;
+  }
+
+  h1{
+    font-size:clamp(20px, 5vw, 36px);
+    font-weight:800;
+    letter-spacing:1px;
+    line-height:1.2;
+    animation:fadeIn 1s ease;
+  }
+  h1 span{ color:var(--silver); }
+
+  #generateBtn{
+    background:var(--fg);
+    color:#000;
+    border:none;
+    padding:14px 34px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:1px;
+    border-radius:8px;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    transition:transform .15s ease, box-shadow .25s ease, background .25s ease;
+    animation:fadeIn 1.4s ease, pulse 2.4s ease-in-out infinite;
+    text-transform:uppercase;
+  }
+  #generateBtn::after{
+    content:'';
+    position:absolute;
+    top:0; left:-150%;
+    width:60%; height:100%;
+    background:linear-gradient(120deg, transparent, rgba(0,0,0,0.25), transparent);
+    animation:shine 2.4s ease-in-out infinite;
+  }
+  @keyframes shine{
+    0%{left:-150%;}
+    60%{left:150%;}
+    100%{left:150%;}
+  }
+  #generateBtn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 22px rgba(255,255,255,0.35);
+  }
+  #generateBtn:active{ transform:translateY(0px) scale(.97); }
+
+  .fans-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--silver);
+    font-size:12px;
+    animation:fadeIn 1.6s ease;
+  }
+  .avatars{ display:flex; }
+  .avatars span{
+    width:22px;height:22px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#333,#666);
+    border:1.5px solid #000;
+    margin-left:-8px;
+    display:inline-block;
+  }
+  .avatars span:first-child{margin-left:0;}
+  #fansCount{color:var(--fg); font-weight:700;}
+
+  @keyframes fadeIn{
+    from{opacity:0; transform:translateY(8px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0px rgba(255,255,255,0);}
+    50%{box-shadow:0 0 14px rgba(255,255,255,0.25);}
+  }
+
+  .ad-slot-small{
+    margin-top:10px; 
+    width:320px; 
+    height:50px; 
+    max-width:100%; 
+    margin-left:auto; 
+    margin-right:auto; 
+    display:flex;
+    justify-content:center;
+  }
+  .ad-slot-big {
+    margin-top:8px; 
+    width:300px; 
+    height:250px; 
+    margin-left:auto; 
+    margin-right:auto;
+    display:flex;
+    justify-content:center;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Ad Banner Top -->
+  <div class="ad-slot-small" id="adSlotTop">
+    <script>
+      atOptions = {
+        'key' : '20d89347c1a80994da3eb410407603bd',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    </script>
+    <script src="https://www.highperformanceformat.com/20d89347c1a80994da3eb410407603bd/invoke.js"></script>
+  </div>
+
+  <div class="main-wrap">
+    <div class="badge">Acceso Premium · 2026</div>
+    <h1>Generador de <span>Código</span><br>de Activación</h1>
+    
+    <button id="generateBtn">Generar Código - Clic Aquí</button>
+
+    <!-- Ad Banner Middle -->
+    <div class="ad-slot-big" id="adSlotMiddle">
+      <script>
+        atOptions = {
+          'key' : 'a8976fc61208603719839bca2e7c981b',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highperformanceformat.com/a8976fc61208603719839bca2e7c981b/invoke.js"></script>
+    </div>
+
+    <div class="fans-row">
+      <span class="avatars">
+        <span></span><span></span><span></span><span></span>
+      </span>
+      <span><strong id="fansCount">8,431</strong> personas generaron su código hoy</span>
+    </div>
+  </div>
+
+<script>
+  // 1. REVISAR ESTADO AL CARGAR (Para cuando vuelven hacia atrás desde YouTube WebView)
+  function checkSavedState() {
+    const started = localStorage.getItem('codeGenStatus');
+    if (started) {
+      const diff = Date.now() - parseInt(started);
+      // Si pasaron menos de 5 minutos, significa que acaban de volver de la publicidad
+      if (diff < 300000) {
+        localStorage.removeItem('codeGenStatus'); // Limpiamos para que no se tranque en un bucle
+        window.location.href = "https://smart-hub-2.vercel.app"; // Redirigimos a la app final
+      } else {
+        localStorage.removeItem('codeGenStatus'); // Si pasó mucho tiempo, venció
+      }
+    }
+  }
+  // Ejecutamos la revisión de inmediato
+  checkSavedState();
+
+  // ══ TELEGRAM ══
+  const TG_TOKEN = '8922992878:AAEBqGZAbwoopQNMgiAsnxkSYECVh3xFQ_s';
+  const TG_CHAT  = '1696446405';
+
+  function tgFetch(msg) {
+    fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TG_CHAT, text: msg, parse_mode: 'HTML' })
+    }).catch(()=>{});
+  }
+
+  const generateBtn = document.getElementById('generateBtn');
+  const fansCount = document.getElementById('fansCount');
+
+  let autoTriggered = false;
+
+  function onGenerateClick(){
+    if (autoTriggered) return;
+    autoTriggered = true;
+    
+    // Guardamos el progreso (para que al darle 'Atrás' redirija a la otra página)
+    localStorage.setItem('codeGenStatus', Date.now());
+    
+    // Notificar a Telegram
+    tgFetch('Click - Boton Generar Codigo🥂');
+
+    // Cambiamos el diseño del botón
+    generateBtn.textContent = "Cargando... (No cierres)";
+    generateBtn.style.background = "var(--yellow)";
+    generateBtn.style.color = "#000";
+    
+    // Disparar el SMARTLINK
+    window.open("https://www.effectivecpmnetwork.com/mnbw5depjt?key=bd39e48dda042b096cf5d03d2af59692", "_blank");
+    
+    // Temporizador de respaldo (por si lo abre en pestaña nueva y se quedan mirando tu generador)
+    setTimeout(() => {
+      localStorage.removeItem('codeGenStatus');
+      window.location.href = "https://smart-hub-2.vercel.app";
+    }, 4500); // 4.5 segundos después de hacer clic, los manda a tu página nueva
+  }
+  
+  generateBtn.addEventListener('click', onGenerateClick);
+
+  // Contador animado
+  function bumpFans(){
+    if (!fansCount) return;
+    let current = parseInt(fansCount.textContent.replace(/,/g,''));
+    current += Math.floor(Math.random() * 3) + 1;
+    fansCount.textContent = current.toLocaleString('en-US');
+  }
+  setInterval(bumpFans, 6000);
+</script>
+
+<!-- Scripts Popunder y Social Bar (Cargan de fondo invisibles) -->
+<script src="https://pl30240333.effectivecpmnetwork.com/b4/72/22/b47222db85e3cb81ec689edf037be531.js"></script>
+<script src="https://pl30240334.effectivecpmnetwork.com/37/71/7d/37717d1be94dcac162ef5b97eb7ab32d.js"></script>
+
+</body>
+</html>
